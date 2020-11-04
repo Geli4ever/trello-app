@@ -57,4 +57,16 @@ public class BoardController {
     public CardDTO updateCards(@PathVariable Long boardId, @PathVariable Long cardsId, @RequestBody CardDTO cardDTO, @PathVariable Long cardId){
         return cardService.updateCardDTO(cardsId, cardId, cardDTO);
     }
+
+    @DeleteMapping("{boardId}/cards/{cardsId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCards(@PathVariable Long boardId, @PathVariable Long cardsId){
+        cardsService.deleteCardsById(boardId, cardsId);
+    }
+
+    @DeleteMapping("{boardId}/cards/{cardsId}/card/{cardId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCards(@PathVariable Long boardId, @PathVariable Long cardsId, @PathVariable Long cardId){
+        cardService.deleteCardById(boardId, cardsId, cardId);
+    }
 }

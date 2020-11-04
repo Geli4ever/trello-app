@@ -6,4 +6,5 @@ public interface CardsService {
 
     CardsDTO saveCardsDTO(Long boardId, CardsDTO cardsDTO);
     CardsDTO updateCardsDTO(Long boardId, Long cardsId, CardsDTO cardsDTO);
+    void deleteCardsById(Long boardId, Long cardsId);
 }

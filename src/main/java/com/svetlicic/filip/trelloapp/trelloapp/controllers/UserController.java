@@ -42,8 +42,13 @@ public class UserController {
 
     @PutMapping("{userId}/boards/{boardId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public BoardDTO updateCards(@PathVariable Long userId, @RequestBody BoardDTO boardDTO, @PathVariable Long boardId){
+    public BoardDTO updateBoard(@PathVariable Long userId, @RequestBody BoardDTO boardDTO, @PathVariable Long boardId){
         return boardService.updateBoardDTO(userId, boardId, boardDTO);
     }
 
+    @DeleteMapping("{userId}/boards/{boardId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateCards(@PathVariable Long userId, @PathVariable Long boardId){
+        boardService.deleteById(userId, boardId);
+    }
 }

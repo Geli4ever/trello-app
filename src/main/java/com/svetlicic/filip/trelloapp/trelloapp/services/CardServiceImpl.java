@@ -102,4 +102,9 @@ public class CardServiceImpl implements CardService{
         cardDTO.setId(cardId);
         return saveCardDTO(cardsId, cardDTO);
     }
+
+    @Override
+    public void deleteCardById(Long boardId, Long cardsId, Long cardId) {
+        cardRepository.deleteById(cardId);
+    }
 }

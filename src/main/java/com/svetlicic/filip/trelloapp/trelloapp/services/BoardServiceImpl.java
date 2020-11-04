@@ -40,9 +40,10 @@ public class BoardServiceImpl implements BoardService {
 
         Optional<User> optionalUser = userRepository.findById(userId);
 
-        if(optionalUser.isPresent()){
+        if(!optionalUser.isPresent()){
             //todo impl error handling
             log.error("user not found with id: " + userId);
+            return new BoardDTO();
         }
 
         User user = optionalUser.get();
@@ -132,6 +133,38 @@ public class BoardServiceImpl implements BoardService {
     public BoardDTO updateBoardDTO(Long userId, Long boardId, BoardDTO boardDTO) {
         boardDTO.setId(boardId);
         return saveBoardDTO(userId, boardDTO);
+    }
+
+    @Override
+    public void deleteById(Long userId, Long boardId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if(userOptional.isPresent()){
+            User user = userOptional.get();
+            Optional<Board> boardOptional = user.getBoards()
+                    .stream()
+                    .filter(board -> board.getId().equals(boardId))
+                    .findFirst();
+
+            if(boardOptional.isPresent()){
+                Board board = boardOptional.get();
+                user.getBoards().remove(board);
+                board.getUsers().remove(user);
+                if(board.getUsers().size() > 0){
+                    boardRepository.save(board);
+                } else {
+                    boardRepository.deleteById(boardId);
+                }
+            } else {
+                //todo impl error handling
+                log.error("board not found with id: " + boardId);
+            }
+        } else {
+            //todo impl error handling
+            log.error("user not found with id: " + userId);
+        }
+
+
     }
 
     @Override
