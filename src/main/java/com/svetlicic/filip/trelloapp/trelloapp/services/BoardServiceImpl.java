@@ -83,13 +83,15 @@ public class BoardServiceImpl implements BoardService {
                 }
             }
 
+            Board boardFound = new Board();
+
             if(boardDTO.getId() != null){
                 Optional<Board> boardOptional = user.getBoards()
                         .stream()
                         .filter(board -> board.getId().equals(boardDTO.getId()))
                         .findFirst();
                 if(boardOptional.isPresent()){
-                    Board boardFound = boardOptional.get();
+                    boardFound = boardOptional.get();
                     boardFound.setBoardName(boardDTO.getBoardName());
                 } else {
                     Board board = boardMapper.boardDtoToBoard(boardDTO);
@@ -107,7 +109,13 @@ public class BoardServiceImpl implements BoardService {
 
             User savedUser = userRepository.save(user);
 
-            String finalKeyString = keyString;
+            String finalKeyString;
+
+            if(boardDTO.getId() == null){
+                finalKeyString = keyString;
+            } else {
+                finalKeyString = boardFound.getKeyString();
+            }
             Optional<Board> savedBoardOptional = savedUser.getBoards().stream()
                     .filter(userBoards -> userBoards.getKeyString().equals(finalKeyString))
                     .findFirst();
@@ -118,6 +126,12 @@ public class BoardServiceImpl implements BoardService {
 
             return boardMapper.boardToBoardDTO(savedBoardOptional.get());
         }
+    }
+
+    @Override
+    public BoardDTO updateBoardDTO(Long userId, Long boardId, BoardDTO boardDTO) {
+        boardDTO.setId(boardId);
+        return saveBoardDTO(userId, boardDTO);
     }
 
     @Override

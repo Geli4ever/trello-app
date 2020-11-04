@@ -45,4 +45,16 @@ public class BoardController {
         savedCardDTO.setCardsId(cardsId);
         return savedCardDTO;
     }
+
+    @PutMapping("{boardId}/cards/{cardsId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public CardsDTO updateCards(@PathVariable Long boardId, @PathVariable Long cardsId, @RequestBody CardsDTO cardsDTO){
+        return cardsService.updateCardsDTO(boardId, cardsId, cardsDTO);
+    }
+
+    @PutMapping("{boardId}/cards/{cardsId}/card/{cardId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public CardDTO updateCards(@PathVariable Long boardId, @PathVariable Long cardsId, @RequestBody CardDTO cardDTO, @PathVariable Long cardId){
+        return cardService.updateCardDTO(cardsId, cardId, cardDTO);
+    }
 }

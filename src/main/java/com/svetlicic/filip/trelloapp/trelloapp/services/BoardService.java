@@ -8,5 +8,6 @@ import java.util.List;
 public interface BoardService {
     BoardDTO findByUserIdAndBoardId(Long userId, Long boardId);
     BoardDTO saveBoardDTO(Long id, BoardDTO boardDTO);
+    BoardDTO updateBoardDTO(Long userId, Long boardId, BoardDTO boardDTO);
     List<CardsDTO> getCardsSet(Long boardId);
 }

@@ -50,13 +50,15 @@ public class CardServiceImpl implements CardService{
                 }
             }
 
+            Card cardFound = new Card();
+
             if(cardDTO.getId() != null){
                 Optional<Card> cardOptional = cards.getCards()
                         .stream()
                         .filter(card -> card.getId().equals(cardDTO.getId()))
                         .findFirst();
                 if(cardOptional.isPresent()){
-                    Card cardFound = cardOptional.get();
+                    cardFound = cardOptional.get();
                     cardFound.setDescription(cardDTO.getDescription());
                 } else {
                     Card card = cardMapper.cardDtoToCard(cardDTO);
@@ -74,7 +76,15 @@ public class CardServiceImpl implements CardService{
 
             Cards savedCards = cardsRepository.save(cards);
 
-            String finalKeyString = keyString;
+            String finalKeyString;
+
+            if(cardDTO.getId() == null){
+                finalKeyString = keyString;
+            } else {
+                finalKeyString = cardFound.getKeyString();
+            }
+
+
             Optional<Card> savedCardsOptional = savedCards.getCards().stream()
                     .filter(card -> card.getKeyString().equals(finalKeyString))
                     .findFirst();
@@ -85,5 +95,11 @@ public class CardServiceImpl implements CardService{
 
             return cardMapper.cardToCardDTO(savedCardsOptional.get());
         }
+    }
+
+    @Override
+    public CardDTO updateCardDTO(Long cardsId, Long cardId, CardDTO cardDTO) {
+        cardDTO.setId(cardId);
+        return saveCardDTO(cardsId, cardDTO);
     }
 }

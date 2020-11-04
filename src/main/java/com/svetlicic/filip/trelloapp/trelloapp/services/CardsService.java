@@ -5,4 +5,5 @@ import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.CardsDTO;
 public interface CardsService {
 
     CardsDTO saveCardsDTO(Long boardId, CardsDTO cardsDTO);
+    CardsDTO updateCardsDTO(Long boardId, Long cardsId, CardsDTO cardsDTO);
 }

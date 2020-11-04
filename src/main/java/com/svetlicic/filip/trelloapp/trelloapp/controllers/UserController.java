@@ -40,4 +40,10 @@ public class UserController {
         return savedBoard;
     }
 
+    @PutMapping("{userId}/boards/{boardId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public BoardDTO updateCards(@PathVariable Long userId, @RequestBody BoardDTO boardDTO, @PathVariable Long boardId){
+        return boardService.updateBoardDTO(userId, boardId, boardDTO);
+    }
+
 }
