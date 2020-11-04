@@ -1,17 +1,21 @@
 package com.svetlicic.filip.trelloapp.trelloapp.services;
 
 import com.svetlicic.filip.trelloapp.trelloapp.mapper.BoardMapper;
+import com.svetlicic.filip.trelloapp.trelloapp.mapper.CardMapper;
+import com.svetlicic.filip.trelloapp.trelloapp.mapper.CardsMapper;
 import com.svetlicic.filip.trelloapp.trelloapp.model.Board;
 import com.svetlicic.filip.trelloapp.trelloapp.model.User;
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.BoardDTO;
+import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.CardsDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.repositories.BoardRepository;
 import com.svetlicic.filip.trelloapp.trelloapp.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
-import java.util.Random;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -20,11 +24,15 @@ public class BoardServiceImpl implements BoardService {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final BoardMapper boardMapper;
+    private final CardsMapper cardsMapper;
+    private final CardMapper cardMapper;
 
-    public BoardServiceImpl(UserRepository userRepository, BoardRepository boardRepository, BoardMapper boardMapper) {
+    public BoardServiceImpl(UserRepository userRepository, BoardRepository boardRepository, BoardMapper boardMapper, CardsMapper cardsMapper, CardMapper cardMapper) {
         this.userRepository = userRepository;
         this.boardRepository = boardRepository;
         this.boardMapper = boardMapper;
+        this.cardsMapper = cardsMapper;
+        this.cardMapper = cardMapper;
     }
 
     @Override
@@ -66,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
 
             while(!quit){
                 quit = true;
-                keyString = generateRandomString();
+                keyString = GeneratedString.INSTANCE.generateRandomString();
                 for(Board board : boardRepository.findAll()){
                     if(board.getKeyString().equals(keyString)){
                         quit = false;
@@ -112,16 +120,13 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
-    private String generateRandomString(){
-        int leftLimit = 48;
-        int rightLimit = 122;
-        int targetStringLength = 10;
-        Random random = new Random();
+    @Override
+    public List<CardsDTO> getCardsSet(Long boardId) {
 
-        return random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
+        return boardRepository.getOne(boardId).getCardsSet()
+                .stream()
+                .map(cardsMapper::cardsToCardsDTO)
+                .collect(Collectors.toList());
     }
+
 }

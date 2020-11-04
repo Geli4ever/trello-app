@@ -1,6 +1,5 @@
 package com.svetlicic.filip.trelloapp.trelloapp.modelDTO;
 
-import com.svetlicic.filip.trelloapp.trelloapp.model.Card;
 import lombok.Data;
 
 import java.util.Set;
@@ -9,6 +8,8 @@ import java.util.Set;
 public class CardsDTO {
 
     private Long id;
+    private Long boardId;
     private String listName;
-    private Set<Card> cards;
+    private String keyString;
+    private Set<CardDTO> cards;
 }

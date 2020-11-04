@@ -49,12 +49,15 @@ public class Bootstrap implements CommandLineRunner {
         Set<Cards> cardsSet = new HashSet<>();
 
         Cards filipBoardToDoCards = new Cards();
+        filipBoardToDoCards.setKeyString("dj88932j38dj8");
         filipBoardToDoCards.setListName("To do");
         Set<Card> toDoCards = new HashSet<>();
         Card toDoCard = new Card();
+        toDoCard.setKeyString("klsdjaskljd22");
         toDoCard.setDescription("Initialize project trello");
         toDoCard.setCards(filipBoardToDoCards);
         Card toDoCard1 = new Card();
+        toDoCard1.setKeyString("fjkdjfkl2f39fu03");
         toDoCard1.setDescription("Add Entities");
         toDoCard1.setCards(filipBoardToDoCards);
         toDoCards.add(toDoCard);
@@ -65,12 +68,15 @@ public class Bootstrap implements CommandLineRunner {
 
 
         Cards filipBoardMeetings = new Cards();
+        filipBoardMeetings.setKeyString("54op5opi34p");
         filipBoardMeetings.setListName("Meetings");
         Set<Card> meetingCards = new HashSet<>();
         Card meetingCard = new Card();
+        meetingCard.setKeyString("3j9d903j");
         meetingCard.setDescription("Next meeting will be tomorrow");
         meetingCard.setCards(filipBoardMeetings);
         Card meetingCard1 = new Card();
+        meetingCard1.setKeyString("fj2390j903j903");
         meetingCard1.setDescription("Topic: Filip will work at Ericsson");
         meetingCard1.setCards(filipBoardMeetings);
         meetingCards.add(meetingCard);
@@ -90,12 +96,15 @@ public class Bootstrap implements CommandLineRunner {
         Set<Cards> cardsSet1 = new HashSet<>();
 
         Cards filipBoardToDoCards1 = new Cards();
+        filipBoardToDoCards1.setKeyString("d1kljjkl1ljk1");
         filipBoardToDoCards1.setListName("To do");
         Set<Card> toDoCards1 = new HashSet<>();
         Card toDoCard2 = new Card();
+        toDoCard2.setKeyString("jj3d90j9032j90");
         toDoCard2.setDescription("Initialize project Pet Clinic");
         toDoCard2.setCards(filipBoardToDoCards1);
         Card toDoCard3 = new Card();
+        toDoCard3.setKeyString("dj239dj9023j90");
         toDoCard3.setDescription("Add PC Entities");
         toDoCard3.setCards(filipBoardToDoCards1);
         toDoCards1.add(toDoCard2);
@@ -105,12 +114,15 @@ public class Bootstrap implements CommandLineRunner {
         cardsSet1.add(filipBoardToDoCards1);
 
         Cards filipBoardMeetings1 = new Cards();
+        filipBoardMeetings1.setKeyString("stu12y21tuu12yt");
         filipBoardMeetings1.setListName("Meetings");
         Set<Card> meetingCards1 = new HashSet<>();
         Card meetingCard2 = new Card();
+        meetingCard2.setKeyString("030d033dd");
         meetingCard2.setDescription("Next PC meeting will be tomorrow");
         meetingCard2.setCards(filipBoardMeetings1);
         Card meetingCard3 = new Card();
+        meetingCard3.setKeyString("d93i90393k90903");
         meetingCard3.setDescription("Topic: Filip will work at Ericsson");
         meetingCard3.setCards(filipBoardMeetings1);
         meetingCards1.add(meetingCard2);

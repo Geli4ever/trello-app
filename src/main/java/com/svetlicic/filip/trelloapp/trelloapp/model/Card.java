@@ -18,6 +18,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
+    private String keyString;
 
     @ManyToOne
     @JoinColumn(name = "cards_id")

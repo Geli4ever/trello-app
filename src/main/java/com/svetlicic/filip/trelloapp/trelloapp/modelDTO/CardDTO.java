@@ -6,5 +6,8 @@ import lombok.Data;
 public class CardDTO {
 
     private Long id;
+    private Long boardId;
+    private Long cardsId;
     private String description;
+    private String keyString;
 }

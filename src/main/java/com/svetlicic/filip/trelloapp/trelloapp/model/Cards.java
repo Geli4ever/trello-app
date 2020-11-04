@@ -20,6 +20,7 @@ public class Cards {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String listName;
+    private String keyString;
 
     @ManyToOne
     @JoinColumn(name = "board_id")
