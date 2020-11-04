@@ -94,12 +94,19 @@ public class BoardServiceImpl implements BoardService {
                 if(boardOptional.isPresent()){
                     boardFound = boardOptional.get();
                     boardFound.setBoardName(boardDTO.getBoardName());
+
                 } else {
-                    Board board = boardMapper.boardDtoToBoard(boardDTO);
-                    board.setId(null);
-                    board.setKeyString(keyString);
-                    board.getUsers().add(user);
-                    user.addBoard(board);
+                    if(boardDTO.getBoardName() == null){
+                        boardFound = boardRepository.getOne(boardDTO.getId());
+                        boardFound.getUsers().add(user);
+                        user.getBoards().add(boardFound);
+                    } else {
+                        Board board = boardMapper.boardDtoToBoard(boardDTO);
+                        board.setId(null);
+                        board.setKeyString(keyString);
+                        board.getUsers().add(user);
+                        user.addBoard(board);
+                    }
                 }
             } else {
                 Board board = boardMapper.boardDtoToBoard(boardDTO);

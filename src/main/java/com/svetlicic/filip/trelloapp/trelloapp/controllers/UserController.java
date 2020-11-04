@@ -32,7 +32,13 @@ public class UserController {
         return new BoardListDTO(userService.getAllBoardsFromUser(userId));
     }
 
-    @PostMapping("{userId}/boards")
+    @PostMapping("/new")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserDTO newUser(@RequestBody UserDTO userDTO){
+        return userService.saveOrUpdateUser(userDTO);
+    }
+
+    @PostMapping("{userId}/boards/new")
     @ResponseStatus(HttpStatus.CREATED)
     public BoardDTO newBoard(@PathVariable Long userId,@RequestBody BoardDTO boardDTO){
         BoardDTO savedBoard = boardService.saveBoardDTO(userId, boardDTO);
