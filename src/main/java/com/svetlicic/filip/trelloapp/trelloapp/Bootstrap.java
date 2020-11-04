@@ -44,6 +44,7 @@ public class Bootstrap implements CommandLineRunner {
 
         Board filipBoard1 = new Board();
         filipBoard1.setBoardName("Trello Project");
+        filipBoard1.setKeyString("143fd32d3");
 
         Set<Cards> cardsSet = new HashSet<>();
 
@@ -84,6 +85,7 @@ public class Bootstrap implements CommandLineRunner {
 
         Board filipBoard2 = new Board();
         filipBoard2.setBoardName("Pet Clinic Project");
+        filipBoard2.setKeyString("yi969y5690yi");
 
         Set<Cards> cardsSet1 = new HashSet<>();
 

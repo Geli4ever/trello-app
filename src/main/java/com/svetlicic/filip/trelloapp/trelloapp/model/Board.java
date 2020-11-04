@@ -20,6 +20,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String boardName;
+    private String keyString;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
     private Set<Cards> cardsSet = new HashSet<>();

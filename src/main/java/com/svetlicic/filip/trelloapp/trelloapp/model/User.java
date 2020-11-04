@@ -30,4 +30,9 @@ public class User {
     @JoinTable(name = "user_boards", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "board_id"))
     Set<Board> boards = new HashSet<>();
+
+    public User addBoard(Board board){
+        this.boards.add(board);
+        return this;
+    }
 }
