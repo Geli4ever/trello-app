@@ -29,7 +29,7 @@ public class BoardController {
         return new CardsListDTO(boardService.getCardsSet(boardId));
     }
 
-    @PostMapping("{boardId}/cards")
+    @PostMapping("{boardId}/cards/new")
     @ResponseStatus(HttpStatus.CREATED)
     public CardsDTO newCardSet(@PathVariable Long boardId, @RequestBody CardsDTO cardsDTO){
         CardsDTO savedCardsDTO = cardsService.saveCardsDTO(boardId, cardsDTO);
@@ -37,7 +37,7 @@ public class BoardController {
         return savedCardsDTO;
     }
 
-    @PostMapping("{boardId}/cards/{cardsId}/card")
+    @PostMapping("{boardId}/cards/{cardsId}/card/new")
     @ResponseStatus(HttpStatus.CREATED)
     public CardDTO newCard(@PathVariable Long cardsId, @RequestBody CardDTO cardDTO, @PathVariable Long boardId){
         CardDTO savedCardDTO = cardService.saveCardDTO(cardsId, cardDTO);
@@ -54,7 +54,7 @@ public class BoardController {
 
     @PutMapping("{boardId}/cards/{cardsId}/card/{cardId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public CardDTO updateCards(@PathVariable Long boardId, @PathVariable Long cardsId, @RequestBody CardDTO cardDTO, @PathVariable Long cardId){
+    public CardDTO updateCard(@PathVariable Long boardId, @PathVariable Long cardsId, @RequestBody CardDTO cardDTO, @PathVariable Long cardId){
         return cardService.updateCardDTO(cardsId, cardId, cardDTO);
     }
 
@@ -66,7 +66,7 @@ public class BoardController {
 
     @DeleteMapping("{boardId}/cards/{cardsId}/card/{cardId}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteCards(@PathVariable Long boardId, @PathVariable Long cardsId, @PathVariable Long cardId){
+    public void deleteCard(@PathVariable Long boardId, @PathVariable Long cardsId, @PathVariable Long cardId){
         cardService.deleteCardById(boardId, cardsId, cardId);
     }
 }

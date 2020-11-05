@@ -7,11 +7,14 @@ import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.BoardDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.UserDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.repositories.BoardRepository;
 import com.svetlicic.filip.trelloapp.trelloapp.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -47,13 +50,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(UserDTO userDTO) {
-        userRepository.delete(userMapper.userDtoToUser(userDTO));
-    }
-
-    @Override
     public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if(userOptional.isPresent()){
+            User user = userOptional.get();
+            userRepository.delete(user);
+        } else {
+            //todo impl error handling
+            log.error("user not found with id: " + id);
+        }
     }
 
     @Override

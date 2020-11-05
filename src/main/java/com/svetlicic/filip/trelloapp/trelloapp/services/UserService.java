@@ -9,7 +9,6 @@ public interface UserService{
     UserDTO getUserById(Long id);
     List<UserDTO> getAllUsers();
     UserDTO saveOrUpdateUser(UserDTO userDTO);
-    void deleteUser(UserDTO userDTO);
     void deleteUserById(Long id);
     List<BoardDTO> getAllBoardsFromUser(Long id);
 }

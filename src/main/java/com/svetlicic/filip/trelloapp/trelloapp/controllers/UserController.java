@@ -2,6 +2,7 @@ package com.svetlicic.filip.trelloapp.trelloapp.controllers;
 
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.BoardDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.BoardListDTO;
+import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.UsersDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.UserDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.services.BoardService;
 import com.svetlicic.filip.trelloapp.trelloapp.services.UserService;
@@ -20,9 +21,15 @@ public class UserController {
         this.boardService = boardService;
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public UsersDTO getAllUsers(){
+        return new UsersDTO(userService.getAllUsers());
+    }
+
     @GetMapping({"{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO getCustomerById(@PathVariable Long id){
+    public UserDTO getUserById(@PathVariable Long id){
         return userService.getUserById(id);
     }
 
@@ -52,9 +59,15 @@ public class UserController {
         return boardService.updateBoardDTO(userId, boardId, boardDTO);
     }
 
+    @DeleteMapping("{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUser(@PathVariable Long userId){
+        userService.deleteUserById(userId);
+    }
+
     @DeleteMapping("{userId}/boards/{boardId}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateCards(@PathVariable Long userId, @PathVariable Long boardId){
+    public void deleteBoard(@PathVariable Long userId, @PathVariable Long boardId){
         boardService.deleteById(userId, boardId);
     }
 }

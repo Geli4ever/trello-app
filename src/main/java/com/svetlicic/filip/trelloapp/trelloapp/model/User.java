@@ -26,7 +26,7 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     private Login login;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH} )
     @JoinTable(name = "user_boards", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "board_id"))
     Set<Board> boards = new HashSet<>();
