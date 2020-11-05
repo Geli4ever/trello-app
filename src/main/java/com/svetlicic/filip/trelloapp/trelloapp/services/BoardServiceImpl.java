@@ -36,30 +36,6 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDTO findByUserIdAndBoardId(Long userId, Long boardId) {
-
-        Optional<User> optionalUser = userRepository.findById(userId);
-
-        if(!optionalUser.isPresent()){
-            //todo impl error handling
-            log.error("user not found with id: " + userId);
-            return new BoardDTO();
-        }
-
-        User user = optionalUser.get();
-
-        Optional<BoardDTO> boardDTOOptional = user.getBoards().stream()
-                .filter(board -> board.getId().equals(boardId))
-                .map(boardMapper::boardToBoardDTO).findFirst();
-
-        if(!boardDTOOptional.isPresent()){
-            //todo impl error handling
-            log.error("board not found with id: " + boardId);
-        }
-        return boardDTOOptional.get();
-    }
-
-    @Override
     @Transactional
     public BoardDTO saveBoardDTO(Long id, BoardDTO boardDTO) {
         Optional<User> userOptional = userRepository.findById(id);

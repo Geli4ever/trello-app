@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class UsersDTO {
-    private List<UserDTO> users;
+public class CardListDTO {
+
+    private List<CardDTO> cards;
 }

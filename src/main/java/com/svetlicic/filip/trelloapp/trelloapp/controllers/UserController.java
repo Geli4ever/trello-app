@@ -2,7 +2,7 @@ package com.svetlicic.filip.trelloapp.trelloapp.controllers;
 
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.BoardDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.BoardListDTO;
-import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.UsersDTO;
+import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.UserListDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.UserDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.services.BoardService;
 import com.svetlicic.filip.trelloapp.trelloapp.services.UserService;
@@ -23,8 +23,8 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public UsersDTO getAllUsers(){
-        return new UsersDTO(userService.getAllUsers());
+    public UserListDTO getAllUsers(){
+        return new UserListDTO(userService.getAllUsers());
     }
 
     @GetMapping({"{id}"})

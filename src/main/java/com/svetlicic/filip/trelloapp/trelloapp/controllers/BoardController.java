@@ -1,6 +1,7 @@
 package com.svetlicic.filip.trelloapp.trelloapp.controllers;
 
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.CardDTO;
+import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.CardListDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.CardsDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.CardsListDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.services.BoardService;
@@ -27,6 +28,12 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     public CardsListDTO getAllCardsSets(@PathVariable Long boardId){
         return new CardsListDTO(boardService.getCardsSet(boardId));
+    }
+
+    @GetMapping("{boardId}/cards/{cardsId}")
+    @ResponseStatus(HttpStatus.OK)
+    public CardListDTO getAllCards(@PathVariable Long boardId, @PathVariable Long cardsId){
+        return new CardListDTO(cardsService.getCards(cardsId));
     }
 
     @PostMapping("{boardId}/cards/new")

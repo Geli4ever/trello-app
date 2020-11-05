@@ -1,15 +1,19 @@
 package com.svetlicic.filip.trelloapp.trelloapp.services;
 
+import com.svetlicic.filip.trelloapp.trelloapp.mapper.CardMapper;
 import com.svetlicic.filip.trelloapp.trelloapp.mapper.CardsMapper;
 import com.svetlicic.filip.trelloapp.trelloapp.model.Board;
 import com.svetlicic.filip.trelloapp.trelloapp.model.Cards;
+import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.CardDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.modelDTO.CardsDTO;
 import com.svetlicic.filip.trelloapp.trelloapp.repositories.BoardRepository;
 import com.svetlicic.filip.trelloapp.trelloapp.repositories.CardsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -18,11 +22,13 @@ public class CardsServiceImpl implements CardsService{
     private final BoardRepository boardRepository;
     private final CardsRepository cardsRepository;
     private final CardsMapper cardsMapper;
+    private final CardMapper cardMapper;
 
-    public CardsServiceImpl(BoardRepository boardRepository, CardsRepository cardsRepository, CardsMapper cardsMapper) {
+    public CardsServiceImpl(BoardRepository boardRepository, CardsRepository cardsRepository, CardsMapper cardsMapper, CardMapper cardMapper) {
         this.boardRepository = boardRepository;
         this.cardsRepository = cardsRepository;
         this.cardsMapper = cardsMapper;
+        this.cardMapper = cardMapper;
     }
 
     @Override
@@ -105,5 +111,14 @@ public class CardsServiceImpl implements CardsService{
     @Override
     public void deleteCardsById(Long boardId, Long cardsId) {
         cardsRepository.deleteById(cardsId);
+    }
+
+    @Override
+    public List<CardDTO> getCards(Long cardsId) {
+
+        return cardsRepository.getOne(cardsId).getCards()
+                .stream()
+                .map(cardMapper::cardToCardDTO)
+                .collect(Collectors.toList());
     }
 }
